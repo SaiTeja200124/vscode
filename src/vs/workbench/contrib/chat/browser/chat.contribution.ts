@@ -104,6 +104,9 @@ import { ChatPasteProvidersFeature } from './chatPasteProviders.js';
 import { QuickChatService } from './chatQuick.js';
 import { ChatResponseAccessibleView } from './chatResponseAccessibleView.js';
 import { ChatSetupContribution, ChatTeardownContribution } from './chatSetup.js';
+import { CustomChatAgentContribution } from './customChatAgent.js';
+import { CoreLanguageModelVendorsContribution } from './coreLanguageModelVendors.js';
+import { LanguageModelProvidersContribution } from './languageModelProviders.js';
 import { ChatStatusBarEntry } from './chatStatus.js';
 import { ChatVariablesService } from './chatVariables.js';
 import { ChatWidget, ChatWidgetService } from './chatWidget.js';
@@ -125,6 +128,39 @@ import { ChatSessionsView } from './chatSessions/view/chatSessionsView.js';
 
 // Register configuration
 const configurationRegistry = Registry.as<IConfigurationRegistry>(ConfigurationExtensions.Configuration);
+
+// Register Language Model configuration
+configurationRegistry.registerConfiguration({
+	id: 'languageModels',
+	title: nls.localize('languageModelsConfigurationTitle', "Language Models"),
+	type: 'object',
+	properties: {
+		'languageModels.openai.apiKey': {
+			type: 'string',
+			scope: ConfigurationScope.APPLICATION,
+			markdownDescription: nls.localize('languageModels.openai.apiKey', "OpenAI API Key for GPT models. Get your API key from https://platform.openai.com/api-keys"),
+			default: ''
+		},
+		'languageModels.openai.baseURL': {
+			type: 'string',
+			scope: ConfigurationScope.APPLICATION,
+			description: nls.localize('languageModels.openai.baseURL', "OpenAI API Base URL (for custom endpoints or proxies)"),
+			default: 'https://api.openai.com/v1'
+		},
+		'languageModels.anthropic.apiKey': {
+			type: 'string',
+			scope: ConfigurationScope.APPLICATION,
+			markdownDescription: nls.localize('languageModels.anthropic.apiKey', "Anthropic API Key for Claude models. Get your API key from https://console.anthropic.com/"),
+			default: ''
+		},
+		'languageModels.anthropic.baseURL': {
+			type: 'string',
+			scope: ConfigurationScope.APPLICATION,
+			description: nls.localize('languageModels.anthropic.baseURL', "Anthropic API Base URL"),
+			default: 'https://api.anthropic.com/v1'
+		}
+	}
+});
 configurationRegistry.registerConfiguration({
 	id: 'chatSidebar',
 	title: nls.localize('interactiveSessionConfigurationTitle', "Chat"),
@@ -904,6 +940,9 @@ registerWorkbenchContribution2(ChatViewsWelcomeHandler.ID, ChatViewsWelcomeHandl
 registerWorkbenchContribution2(ChatGettingStartedContribution.ID, ChatGettingStartedContribution, WorkbenchPhase.Eventually);
 registerWorkbenchContribution2(ChatSetupContribution.ID, ChatSetupContribution, WorkbenchPhase.BlockRestore);
 registerWorkbenchContribution2(ChatTeardownContribution.ID, ChatTeardownContribution, WorkbenchPhase.AfterRestored);
+registerWorkbenchContribution2(CustomChatAgentContribution.ID, CustomChatAgentContribution, WorkbenchPhase.BlockRestore);
+registerWorkbenchContribution2(CoreLanguageModelVendorsContribution.ID, CoreLanguageModelVendorsContribution, WorkbenchPhase.BlockStartup);
+registerWorkbenchContribution2(LanguageModelProvidersContribution.ID, LanguageModelProvidersContribution, WorkbenchPhase.BlockRestore);
 registerWorkbenchContribution2(ChatStatusBarEntry.ID, ChatStatusBarEntry, WorkbenchPhase.BlockRestore);
 registerWorkbenchContribution2(BuiltinToolsContribution.ID, BuiltinToolsContribution, WorkbenchPhase.Eventually);
 registerWorkbenchContribution2(ChatAgentSettingContribution.ID, ChatAgentSettingContribution, WorkbenchPhase.AfterRestored);
