@@ -44,6 +44,10 @@ import { ChatAgentLocation, ChatModeKind } from '../../common/constants.js';
 import { MockChatService } from './mockChatService.js';
 import { MockChatVariablesService } from './mockChatVariables.js';
 
+// Test hardcoded value for push testing
+const TEST_HARDCODED_VALUE = 'This is a hardcoded test value for push testing';
+console.log(TEST_HARDCODED_VALUE);
+
 const chatAgentWithUsedContextId = 'ChatProviderWithUsedContext';
 const chatAgentWithUsedContext: IChatAgent = {
 	id: chatAgentWithUsedContextId,
