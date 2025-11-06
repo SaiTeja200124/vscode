@@ -515,12 +515,12 @@ class OllamaLanguageModelProvider extends Disposable implements ILanguageModelCh
 			// Return available Ollama models
 			const modelList: ILanguageModelChatMetadataAndIdentifier[] = [];
 
-		for (const model of models) {
-			const modelName = model.name;
-			// Encode model name to preserve special characters (dots, colons)
-			// Use URL-safe encoding: replace . with _dot_ and : with _colon_
-			const encodedName = modelName.replace(/\./g, '_dot_').replace(/:/g, '_colon_');
-			const modelId = `ollama-${encodedName}`;
+			for (const model of models) {
+				const modelName = model.name;
+				// Encode model name to preserve special characters (dots, colons)
+				// Use URL-safe encoding: replace . with _dot_ and : with _colon_
+				const encodedName = modelName.replace(/\./g, '_dot_').replace(/:/g, '_colon_');
+				const modelId = `ollama-${encodedName}`;
 
 				modelList.push({
 					identifier: modelId,
@@ -594,7 +594,7 @@ class OllamaLanguageModelProvider extends Disposable implements ILanguageModelCh
 		// Decode the model name from the identifier
 		const encodedName = modelId.replace('ollama-', '');
 		const model = encodedName.replace(/_dot_/g, '.').replace(/_colon_/g, ':');
-		
+
 		console.log('[Ollama Provider] Decoded model name:', model, 'from identifier:', modelId);
 
 		// Convert messages to Ollama format
