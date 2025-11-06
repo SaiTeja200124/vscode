@@ -9,7 +9,7 @@ import { ILanguageModelsService } from '../common/languageModels.js';
 
 /**
  * Core Language Model Vendors Registration
- * This registers built-in vendors (OpenAI, Anthropic) before the providers are registered
+ * This registers built-in vendors (OpenAI, Anthropic, Ollama) before the providers are registered
  */
 export class CoreLanguageModelVendorsContribution extends Disposable implements IWorkbenchContribution {
 
@@ -44,6 +44,13 @@ export class CoreLanguageModelVendorsContribution extends Disposable implements 
 			service._vendors.set('anthropic', {
 				vendor: 'anthropic',
 				displayName: 'Anthropic',
+				managementCommand: undefined
+			});
+
+			console.log('[Core LM Vendors] Registering ollama vendor');
+			service._vendors.set('ollama', {
+				vendor: 'ollama',
+				displayName: 'Ollama',
 				managementCommand: undefined
 			});
 

@@ -158,6 +158,12 @@ configurationRegistry.registerConfiguration({
 			scope: ConfigurationScope.APPLICATION,
 			description: nls.localize('languageModels.anthropic.baseURL', "Anthropic API Base URL"),
 			default: 'https://api.anthropic.com/v1'
+		},
+		'languageModels.ollama.baseURL': {
+			type: 'string',
+			scope: ConfigurationScope.APPLICATION,
+			markdownDescription: nls.localize('languageModels.ollama.baseURL', "Ollama API Base URL. Default is local: http://localhost:11434. Install Ollama from https://ollama.com"),
+			default: 'http://localhost:11434'
 		}
 	}
 });
